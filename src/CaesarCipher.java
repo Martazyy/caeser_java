@@ -4,6 +4,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
+//Инициализация констант - алфавитов
 public class CaesarCipher {
     private static final String RUSSIAN_UPPER = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
     private static final String RUSSIAN_LOWER = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
@@ -36,7 +37,7 @@ public class CaesarCipher {
         return result.toString();
     }
 
-    // Шифрует и дешифрует текст
+    // Шифрование текст
     public static String encrypt(String text, int shift) {
         StringBuilder result = new StringBuilder();
         // Шифруем текст по всем алфавитам в одном цикле
@@ -56,6 +57,7 @@ public class CaesarCipher {
         return result.toString();
     }
 
+    //Дешифрование текста
     public static String decrypt(String text, int shift) {
         return encrypt(text, -shift);
     }
@@ -67,7 +69,7 @@ public class CaesarCipher {
         Files.write(Paths.get(outputPath), result.getBytes());
     }
 
-    // Дешифрование методом грубой силы
+    // Дешифрование методом brute force
     public static void bruteForceDecrypt(String inputPath, String examplePath, String outputPath) throws IOException {
         if (!Files.exists(Paths.get(inputPath))) {
             throw new FileNotFoundException("Файл " + inputPath + " не найден.");
@@ -101,7 +103,7 @@ public class CaesarCipher {
                 frequencyMap.put(c, frequencyMap.getOrDefault(c, 0) + 1);
             }
         }
-        // Найдем наиболее часто встречающийся символ
+        // Поиск наиболее часто встречающегося символа
         char mostCommon = frequencyMap.entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey();
         int shift = (RUSSIAN_LOWER.indexOf(mostCommon) - RUSSIAN_LOWER.indexOf('о') + RUSSIAN_LOWER.length()) % RUSSIAN_LOWER.length();
         return shift;
@@ -129,7 +131,7 @@ public class CaesarCipher {
                 } else if (choice.equals("3")) {
                     System.out.println("Введите путь к входному файлу:");
                     String inputPath = reader.readLine();
-                    System.out.println("Введите путь к файлу с примером текста (опционально):");
+                    System.out.println("Введите путь к файлу с примером текста:");
                     String examplePath = reader.readLine();
                     System.out.println("Введите путь к выходному файлу:");
                     String outputPath = reader.readLine();
@@ -152,12 +154,17 @@ public class CaesarCipher {
     }
 }
 
-
-
-
+// 1 и 2
 //Введите путь к входному файлу:
-//Z:\mobilka\caeser\output.txt
-//Введите путь к файлу с примером текста (опционально):
-//Z:\mobilka\caeser\example.txt
+//example.txt
+//Введите путь к файлу с примером текста:
+//*.txt
+
+
+// 3 и 4
+//Введите путь к входному файлу:
+//output.txt
+//Введите путь к файлу с примером текста:
+//example.txt
 //Введите путь к выходному файлу:
-//Z:\mobilka\caeser\input.txt
+//input.txt
